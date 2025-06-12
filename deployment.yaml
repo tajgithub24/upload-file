@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: upload-container
-        image: taj070796/upload
+        image: k8cluster1registry.azurecr.io/upload
         ports:
         - containerPort: 5000
         env:
