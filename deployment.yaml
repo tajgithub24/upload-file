@@ -21,7 +21,13 @@ spec:
         image: taj070796/upload
         ports:
         - containerPort: 5000
-
+        env:
+        - name: ENVIRONMENT
+          value: "development"
+        - name: LOG_LEVEL
+          value: "info"
+        - name: API_URL
+          value: "https://upload.example.com"
 ---
 apiVersion: v1
 kind: Service
