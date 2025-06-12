@@ -174,11 +174,11 @@ spec:
             - containerPort: 3002
           resources:
             requests:
-              cpu: 1m
-              memory: 1Mi
+		  cpu: 50m
+              memory: 64Mi
             limits:
-              cpu: 1m
-              memory: 7Mi
+              cpu: 200m
+              memory: 256Mi
 ---
 apiVersion: v1
 kind: Service
