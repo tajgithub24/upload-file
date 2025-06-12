@@ -1,18 +1,15 @@
----
 - apiVersion: v1
   kind: Namespace
   metadata:
-    name: azure-store
+    name: azure-store-1749707849581
   spec:
     finalizers:
       - kubernetes
-
----
 - apiVersion: apps/v1
   kind: Deployment
   metadata:
     name: rabbitmq
-    namespace: azure-store
+    namespace: azure-store-1749707849581
   spec:
     replicas: 1
     selector:
@@ -57,8 +54,6 @@
               items:
                 - key: rabbitmq_enabled_plugins
                   path: enabled_plugins
-
----
 - apiVersion: v1
   data:
     rabbitmq_enabled_plugins: |
@@ -66,14 +61,12 @@
   kind: ConfigMap
   metadata:
     name: rabbitmq-enabled-plugins
-    namespace: azure-store
-
----
+    namespace: azure-store-1749707849581
 - apiVersion: v1
   kind: Service
   metadata:
     name: rabbitmq
-    namespace: azure-store
+    namespace: azure-store-1749707849581
   spec:
     selector:
       app: rabbitmq
@@ -85,13 +78,11 @@
         port: 15672
         targetPort: 15672
     type: ClusterIP
-
----
 - apiVersion: apps/v1
   kind: Deployment
   metadata:
     name: order-service
-    namespace: azure-store
+    namespace: azure-store-1749707849581
   spec:
     replicas: 1
     selector:
@@ -140,18 +131,16 @@
                 2; done;
             resources:
               requests:
-                cpu: 1m
-                memory: 50Mi
+                cpu: 100m
+                memory: 64Mi
               limits:
-                cpu: 75m
-                memory: 128Mi
-
----
+                cpu: 200m
+                memory: 256Mi
 - apiVersion: v1
   kind: Service
   metadata:
     name: order-service
-    namespace: azure-store
+    namespace: azure-store-1749707849581
   spec:
     type: ClusterIP
     ports:
@@ -160,14 +149,11 @@
         targetPort: 3000
     selector:
       app: order-service
-
-
----
 - apiVersion: apps/v1
   kind: Deployment
   metadata:
     name: product-service
-    namespace: azure-store
+    namespace: azure-store-1749707849581
   spec:
     replicas: 1
     selector:
@@ -187,18 +173,16 @@
               - containerPort: 3002
             resources:
               requests:
-                cpu: 100m
-                memory: 64Mi
+                cpu: 1m
+                memory: 1Mi
               limits:
-                cpu: 200m
-                memory: 256Mi
-
----
+                cpu: 1m
+                memory: 7Mi
 - apiVersion: v1
   kind: Service
   metadata:
     name: product-service
-    namespace: azure-store
+    namespace: azure-store-1749707849581
   spec:
     type: ClusterIP
     ports:
@@ -207,13 +191,11 @@
         targetPort: 3002
     selector:
       app: product-service
-
----
 - apiVersion: apps/v1
   kind: Deployment
   metadata:
     name: store-front
-    namespace: azure-store
+    namespace: azure-store-1749707849581
   spec:
     replicas: 1
     selector:
@@ -244,13 +226,11 @@
               limits:
                 cpu: 1000m
                 memory: 512Mi
-
----
 - apiVersion: v1
   kind: Service
   metadata:
     name: store-front
-    namespace: azure-store
+    namespace: azure-store-1749707849581
   spec:
     ports:
       - port: 80
